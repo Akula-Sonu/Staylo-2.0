@@ -1,0 +1,31 @@
+const mongoose = require('mongoose');
+const path = require('path');
+const cities = require('./cities.js');
+const {descriptors,places} = require('./seedHelpers.js');
+const Campground = require('../models/campground');
+
+mongoose.connect('mongodb://127.0.0.1:27017/Staylo', {
+})
+.then(() => {
+  console.log("MongoDB connection open!");
+})
+.catch(err => {
+  console.log("MongoDB connection error:");
+  console.log(err);
+});
+
+const sample = array => array[Math.floor(Math.random()*array.length)];
+
+const seedDB = async () => {
+    await Campground.deleteMany();
+    for(let i=0; i<50;i++){
+        const random1000 = Math.floor(Math.random()*1000);
+        const camp = new Campground({
+            location: `${cities[random1000].city} ${cities[random1000].state}`,
+            title: `${sample(descriptors)} ${sample(places)}`
+        })
+        camp.save();
+    }
+
+}
+seedDB();
