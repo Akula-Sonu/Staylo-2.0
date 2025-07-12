@@ -5,7 +5,7 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const path = require('path');
 const Campground = require('./models/campground');
-const campground = require('./models/campground');
+
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/Staylo', {
